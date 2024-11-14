@@ -1,0 +1,64 @@
+<!-- templates/splash.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Landing Page</title>
+    <style>
+        /* Basic styling for the splash screen */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .container {
+            text-align: center;
+        }i
+
+	.logo {
+            width: 150px; /* Set the size of the logo */
+            height: auto;
+            margin-bottom: 20px;
+	}
+
+        h1 {
+            font-size: 3em;
+	    margin:0px;
+        }
+        p {
+            font-size: 1.5em;
+	    margin-top:5px;
+        }
+        .enter-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #4CAF50;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .enter-button:hover {
+            background-color: #f0f0f0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container"i>
+	<img src="/static/logow.png" alt="Gesture Link Logo" class="logo">
+	<h1>GESTURE LINK</h1>
+	<p><b>Your Voice Amplified</b></p>
+        <a href="/menu" class="enter-button">Start</a>
+    </div>
+</body>
+</html>

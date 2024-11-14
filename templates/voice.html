@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice to Text</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 1.5em;
+            background-color: white;
+            color: #4CAF50;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .button:hover {
+            background-color: #f0f0f0;
+        }
+        #transcription {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Voice to Text</h1>
+        <button id="startButton" class="button">Start Recording</button>
+        <button id="stopButton" class="button" disabled>Stop Recording</button>
+        <p id="transcription">Transcription will appear here...</p>
+    </div>
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const transcription = document.getElementById('transcription');
+
+        startButton.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    audioChunks = [];  // Clear the chunks for the next recording
+                    
+                    const formData = new FormData();
+                    formData.append('file', audioBlob, 'audio.wav');
+
+                    transcription.textContent = "Transcribing...";
+
+                    // Send audio file to the server for transcription
+                    const response = await fetch('/transcribe', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        transcription.textContent = data.text || "No transcription available.";
+                    } else {
+                        transcription.textContent = "Transcription failed. Please try again.";
+                    }
+                };
+
+                mediaRecorder.start();
+                startButton.disabled = true;
+                stopButton.disabled = false;
+            } catch (error) {
+                transcription.textContent = "Error accessing microphone. Please check your permissions.";
+            }
+        });
+
+        stopButton.addEventListener('click', () => {
+            mediaRecorder.stop();
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        });
+    </script>
+</body>
+</html>
