@@ -3,7 +3,7 @@ This project is a TETFAIR project. TETFAIR is an initiative of [TETFUND](https:/
 
 Action Detection using tensorflow, tensforflow-gpu, opencv-python, mediapipe, scikit-learn, matplotlib for model training and evaluation. 
 
-![Raspberry Pi 4, Model B] (https://res.cloudinary.com/glittering-rocks-ltd/image/upload/f_auto,q_auto/c8gusrblc99t39jd7bmv](https://res.cloudinary.com/glittering-rocks-ltd/image/upload/v1732094909/introduction_2001_k7qdox.jpg)
+![Raspberry Pi 4, Model B](https://res.cloudinary.com/glittering-rocks-ltd/image/upload/v1732094909/introduction_2001_k7qdox.jpg)
 
 # Setup 
 run requirements.txt for pip users
